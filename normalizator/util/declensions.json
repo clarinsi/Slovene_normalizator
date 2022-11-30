@@ -1,0 +1,262 @@
+{
+   "prvaMoska": {
+      "singular": {
+         "nominative": "",
+         "genitive": "a",
+         "dative": "u",
+         "accusative": "",
+         "locative": "u",
+         "instrumental": "om"
+      },
+      "dual": {
+         "nominative": "a",
+         "genitive": "ov",
+         "dative": "oma",
+         "accusative": "a",
+         "locative": "ih",
+         "instrumental": "oma"
+      },
+      "plural": {
+         "nominative": "i",
+         "genitive": "ov",
+         "dative": "om",
+         "accusative": "e",
+         "locative": "ih",
+         "instrumental": "i"
+      }
+   },
+   "drugaMoska": {
+      "singular": {
+         "nominative": "a",
+         "genitive": "e",
+         "dative": "i",
+         "accusative": "o",
+         "locative": "i",
+         "instrumental": "o"
+      },
+      "dual": {
+         "nominative": "i",
+         "genitive": "",
+         "dative": "ama",
+         "accusative": "i",
+         "locative": "ama",
+         "instrumental": "ama"
+      },
+      "plural": {
+         "nominative": "e",
+         "genitive": "",
+         "dative": "em",
+         "accusative": "e",
+         "locative": "ah",
+         "instrumental": "ami"
+      }
+   },
+   "tretjaMoska": {
+      "singular": {
+         "nominative": "i",
+         "genitive": "ega",
+         "dative": "emu",
+         "accusative": "i",
+         "locative": "em",
+         "instrumental": "i"
+      },
+      "dual": {
+         "nominative": "a",
+         "genitive": "ih",
+         "dative": "ima",
+         "accusative": "a",
+         "locative": "ih",
+         "instrumental": "ima"
+      },
+      "plural": {
+         "nominative": "i",
+         "genitive": "ih",
+         "dative": "im",
+         "accusative": "e",
+         "locative": "ih",
+         "instrumental": "im"
+      }
+   },
+   "cetrtaMoska": {
+      "singular": {
+         "nominative": "i",
+         "genitive": "ega",
+         "dative": "emu",
+         "accusative": "ega",
+         "locative": "em",
+         "instrumental": "im"
+      },
+      "dual": {
+         "nominative": "a",
+         "genitive": "ih",
+         "dative": "ima",
+         "accusative": "a",
+         "locative": "ih",
+         "instrumental": "ima"
+      },
+      "plural": {
+         "nominative": "i",
+         "genitive": "ih",
+         "dative": "im",
+         "accusative": "e",
+         "locative": "ih",
+         "instrumental": "imi"
+      }
+   },
+   "prvaZenska": {
+      "singular": {
+         "nominative": "a",
+         "genitive": "e",
+         "dative": "i",
+         "accusative": "o",
+         "locative": "i",
+         "instrumental": "o"
+      },
+      "dual": {
+         "nominative": "i",
+         "genitive": "",
+         "dative": "ama",
+         "accusative": "i",
+         "locative": "ah",
+         "instrumental": "ama"
+      },
+      "plural": {
+         "nominative": "e",
+         "genitive": "",
+         "dative": "am",
+         "accusative": "e",
+         "locative": "ah",
+         "instrumental": "ami"
+      }
+   },
+   "drugaZenska": {
+      "singular": {
+         "nominative": "",
+         "genitive": "i",
+         "dative": "i",
+         "accusative": "",
+         "locative": "i",
+         "instrumental": "jo"
+      },
+      "dual": {
+         "nominative": "i",
+         "genitive": "i",
+         "dative": "ema",
+         "accusative": "i",
+         "locative": "eh",
+         "instrumental": "ema"
+      },
+      "plural": {
+         "nominative": "i",
+         "genitive": "i",
+         "dative": "em",
+         "accusative": "i",
+         "locative": "eh",
+         "instrumental": "mi"
+      }
+   },
+   "tretjaZenska": {
+      "singular": {
+         "nominative": "",
+         "genitive": "",
+         "dative": "",
+         "accusative": "",
+         "locative": "",
+         "instrumental": ""
+      },
+      "dual": {
+         "nominative": "",
+         "genitive": "",
+         "dative": "",
+         "accusative": "",
+         "locative": "",
+         "instrumental": ""
+      },
+      "plural": {
+         "nominative": "",
+         "genitive": "",
+         "dative": "",
+         "accusative": "",
+         "locative": "",
+         "instrumental": ""
+      }
+   },
+   "cetrtaZenska": {
+      "singular": {
+         "nominative": "a",
+         "genitive": "e",
+         "dative": "i",
+         "accusative": "o",
+         "locative": "i",
+         "instrumental": "o"
+      },
+      "dual": {
+         "nominative": "i",
+         "genitive": "ih",
+         "dative": "ima",
+         "accusative": "i",
+         "locative": "ih",
+         "instrumental": "ima"
+      },
+      "plural": {
+         "nominative": "e",
+         "genitive": "ih",
+         "dative": "im",
+         "accusative": "e",
+         "locative": "ih",
+         "instrumental": "imi"
+      }
+   },
+   "prvaSrednja": {
+      "singular": {
+         "nominative": "o",
+         "genitive": "a",
+         "dative": "u",
+         "accusative": "o",
+         "locative": "u",
+         "instrumental": "om"
+      },
+      "dual": {
+         "nominative": "i",
+         "genitive": "",
+         "dative": "oma",
+         "accusative": "i",
+         "locative": "ih",
+         "instrumental": "oma"
+      },
+      "plural": {
+         "nominative": "a",
+         "genitive": "",
+         "dative": "om",
+         "accusative": "a",
+         "locative": "ih",
+         "instrumental": "i"
+      }
+   },
+   "minimalnoSrednje": {
+      "singular": {
+         "nominative": "o",
+         "genitive": "ega",
+         "dative": "emu",
+         "accusative": "ega",
+         "locative": "em",
+         "instrumental": "im"
+      },
+      "dual": {
+         "nominative": "a",
+         "genitive": "ih",
+         "dative": "ima",
+         "accusative": "a",
+         "locative": "ih",
+         "instrumental": "ima"
+      },
+      "plural": {
+         "nominative": "a",
+         "genitive": "ih",
+         "dative": "im",
+         "accusative": "e",
+         "locative": "ih",
+         "instrumental": "im"
+      }
+   }
+}

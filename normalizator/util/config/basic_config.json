@@ -1,0 +1,213 @@
+{"num":
+      {"normalize":"true",
+      "subtypes": {
+         "number": {
+            "normalize": "true"
+         },
+         "ordinal_number": {
+            "normalize": "true"
+         },
+         "decimal_number": {
+            "normalize": "true"
+         },
+         "fraction": {
+            "normalize": "true"
+         },
+         "hour": {
+            "normalize": "true"
+         },
+         "section": {
+            "normalize": "true"
+         },
+         "result": {
+            "normalize": "true"
+         },
+         "phone_number": {
+            "normalize": "true"
+         },
+         "date": {
+            "normalize": "true",
+            "pronunciation_month": "number",
+            "pronunciation_year": "regular"
+         },
+         "complex_duration": {
+            "normalize": "true"
+         },
+         "alnum": {
+            "normalize": "true"
+         },
+         "times": {
+            "normalize": "true"
+         }
+   }},
+   
+   "roman_numeral": {
+      "normalize": "true"
+   },
+   "interval": {
+      "normalize": "true"
+   },
+   "email": {
+      "normalize":  "true"
+   },
+   "complex": {
+      "normalize": "true"
+   },
+   "symbol": {
+      "normalize": "true",
+      "set":
+         {
+            "$": "dolar",
+            ",": "vejica",
+            "-": "-",
+            "–": "–",
+            "_": "podčrtaj",
+            "%": "odstotek",
+            "#": "lojtra",
+            "@": "afna",
+            "+": "plus",
+            "×": "krat",
+            "*": "krat",
+            "/": "skozi",
+            ":": "dvopičje",
+            ">": "je več kot",
+            "<": "je manj kot",
+            "<=": "je manj ali enako",
+            ">=": "je več ali enako",
+            "=": "je enako",
+            "√": "koren",
+            "∑": "vsota",
+            "¬": "negacija",
+            "∞": "neskončno",
+            "≠": "ni enako",
+            "≡": "je ekvivalentno",
+            "≪": "je veliko manjše",
+            "≫": "je veliko večje",
+            "&": "in",
+            "∀": "za vsak",
+            "∃": "obstaja",
+            "∈": "je element",
+            "Γ": "veliki gama",
+            "δ": "veliki delta",
+            "Δ": "delta",
+            "π": "pi",
+            "∏": "produkt",
+            "σ": "sigma",
+            "α": "alfa",
+            "β": "beta",
+            "γ": "gama",
+            "ε": "epsilon",
+            "λ": "lambda",
+            "ξ": "ksi",
+            "τ": "tau",
+            "ψ": "psi",
+            "ω": "omega",
+            "≈": "je približno enako",
+            "±": "plus minus",
+            "⊆": "je podmnožica",
+            "⊂": "je prava podmnožica",
+            "⊄": "ni podmnožica"
+         }
+   },
+   "unit": {
+      "normalize": "true",
+      "pronunciation": "na",
+      "set":
+         {
+            "dan": "dan",
+            "mesec": "mesec",
+            "m2": "kvadratniMeter",
+            "m3": "kubicniMeter",
+            "ha": "hektar",
+            "mol": "mol",
+            "kcal": "kalorija",
+            "tbl.": "tableta",
+            "KM": "konjskaMoc",
+            "´": "sekunda",
+            "´´": "minuta",
+            "˝": "palec",
+            "‰": "promil",
+            "B": "bajt",
+            "min": "minuta",
+            "m": "meter",
+            "g": "gram",
+            "l": "liter",
+            "L": "liter",
+            "t": "tona",
+            "b": "bar",
+            "N": "newton",
+            "Pa": "paskal",
+            "V": "volt",
+            "W": "vat",
+            "A": "amper",
+            "s": "sekunda",
+            "h": "ura",
+            "K": "kelvin",
+            "Hz": "herc",
+            "J": "džul",
+            "F": "farad",
+            "Ω": "ohm",
+            "°": "stopinja",
+            "°C": "stopinjaCelzija",
+            "°F": "stopinjaFahrenheita",
+            "EUR": "evro",
+            "SIT": "tolar",
+            "€": "evro",
+            "%": "odstotek",
+            "$": "dolar"
+         }
+   },
+   "abbr": {
+      "normalize": "true",
+      "set":
+         {"g.": {"gospod": "NOUN"},
+         "dr.": {"doktor+doktorica": "NOUN"},
+         "mag.": {"magister+magistrica": "NOUN"},
+         "prof.": {"profesor+profesorica": "NOUN"},
+         "asist.": {"asistent+asistentka": "NOUN"},
+         "doc.": {"docent+docentka": "NOUN"},
+         "ing.": {"inženir+inženirka": "NOUN"},
+         "gdč.": {"gospodična": "NOUN"},
+         "psih.": {"psiholog+psihologinja": "NOUN"},
+         "prim.": {"primarij+primarijka": "NOUN"},
+         "spec.": {"specialist+specialistka": "NOUN"},
+         "kem.": {"kemik+kemičarka": "NOUN"},
+         "št.": {"številka": "NOUN"},
+         "tbl.": {"tableta": "NOUN"},
+         "žl.": {"žlica": "NOUN"},
+         "maks.": {"maksimalen": "ADJ"},
+         "roj.": {"rojen": "ADJ"},
+         "kl.": {"kliničen": "ADJ"},
+         "izr.": {"izreden": "ADJ"},
+         "dipl.": {"diplomiran": "ADJ"},
+         "univ.": {"univerziteten": "ADJ"},
+         "ev.": {"eventuelen": "ADJ"},
+         "pribl.": {"približno": "ADV"},
+         "oz.": {"oziroma": "ADV"},
+         "cca.": {"cirka": "ADV"},
+         "ge.": {"gospe": "FIXED"},
+         "go.": {"gospo": "FIXED"},
+         "el.": {"elektronski": "ADJ"},
+         "čl.": {"člen": "NOUN"},
+         "odst.": {"odstavek": "NOUN"},
+         "sv.": {"svet": "ADJ"},
+         
+         "tj.": {"to je": "FIXED"},
+         "itd.": {"in tako dalje": "FIXED"},
+         "itn.": {"in tako naprej": "FIXED"},
+         "ipd.": {"in podobno": "FIXED"},
+         "npr.": {"na primer": "FIXED"},
+         
+         "ddr.": {"dvojen_doktor+doktorica": "ADJ_NOUN"},
+         "t. i.": {"tako_imenovan": "ADV_ADJ"},
+         "pr. n. št.": {"pred_našim_štetjem": "FIXED"}
+         }
+   },
+   "link": {
+      "normalize": "true"
+   },
+   "not_supported": {
+      "normalize": "false"
+   },
+   "tokenize_sentences": "false"
+}

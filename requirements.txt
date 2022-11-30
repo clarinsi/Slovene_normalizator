@@ -1,0 +1,3 @@
+nltk>=3.6.7
+classla>=1.1.0
+reldi-tokeniser>=1.0.1

@@ -1,0 +1,114 @@
+{
+  "Ura": {
+     "Levo": [
+        "[Oo]b",
+        "[Oo]d",
+        "[Dd]o",
+        "[Dd]anes",
+        "[Jj]utri",
+        "[Vv]čeraj",
+        "[Oo]krog",
+        "[Oo]koli",
+        "[Zz]jutraj",
+        "[PpDd]?[Oo]poldne",
+        "[Pp]onoči",
+        "[Mm]ed",
+        "[Uu]r[ai]"
+     ],
+     "Desno": [
+        "[Zz]jutraj",
+        "[PpDd]?[Oo]poldne",
+        "[Pp]onoči",
+        "[Vv]čeraj",
+        "[Dd]anes",
+        "[Jj]utri",
+        "[Uu]r[ai]"
+     ]
+  },
+  "Rezultat": [
+      "[Rr]azmerj.{1,3}",
+      "[Mm]ešanic.{1,3}",
+      "[Zz]aosta.*",
+      "[Zz]$",
+      "[Ss]$",
+      "[Ii]zid.*",
+      "[Pp]roti$",
+      "[Vv]odil.*",
+      "[Pp]omeril.*",
+      "[Pp]oraz.*",
+      "[Zz]mag.*",
+      "[Tt]očk.*",
+      "[Rr]ezultat.*",
+      "[Pp]remaga.*",
+      "[Ss]lavil.*",
+      "[Bb]oljš.*",
+      "[Ss]labš[ai].*",
+      "[Ii]zgub.*",
+      "[Ii]zenač.*",
+      "^[Bb]il$",
+      "[Pp]rednost.*",
+      "[Mm]oštv.*",
+      "[Ss]kupin[aeio]",
+      "[Ee]kip[aoie]",
+      "[Pp]okal."
+  ],
+  "Interval": {
+      "Levo": [
+          "[Oo]d",
+          "[Ss]kupin.*",
+          "[Oo]bdobj.*",
+          "[Ll]et[a-zA-Z]*",
+          "[Ss]tran.*",
+          "[Mm]andat.*",
+          "[Vv]elikost.*",
+          "[Ss]ezon.*",
+          "[Mm]ed",
+          "[Zz]a",
+          "[Vv]",
+          "[Nn]a",
+          "[Pp]o",
+          "[Dd]olg.*",
+          "[Šš]irok.*",
+          "[Gg]lobok.*",
+          "[Oo]cen.*",
+          "[Kk]orak.*",
+          "[Ss]hem."
+      ]
+  },
+  "Razdelek": {
+      "Levo": [
+          "[Rr]azdel.*",
+          "[Ss]lik.*",
+          "[Pp]oglavj.*"
+      ]
+  },
+  "TelefonskaStevilka": [
+      "[Tt]elefon.*",
+      "[Šš]t\\.",
+      "[Tt]el\\.",
+      "[Šš]tevilk",
+      "[Oo]dzivnik",
+      "[Ff]aks"
+  ],
+  "Leto": [
+      "[Jj]anuar.*",
+      "[Ff]ebruar.*",
+      "[Mm]arec.*",
+      "[Mm]arc.*",
+      "[Aa]pril.*",
+      "[Mm]aj.*",
+      "[Jj]unij.*",
+      "[Jj]ulij.*",
+      "[Aa]vgust.*",
+      "[Ss]eptemb.*",
+      "[Oo]ktob.*",
+      "[Nn]ovemb.*",
+      "[Dd]ecemb.*",
+      "[Ll]eto",
+      "[Ll]eta",
+      "[Ll]etih",
+      "[Pp]ozimi",
+      "[Jj]eseni",
+      "[Pp]omladi"
+  ]
+}

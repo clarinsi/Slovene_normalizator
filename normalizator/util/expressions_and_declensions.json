@@ -1,0 +1,409 @@
+{
+   "Splosno": {
+      "naborSklonovSlo": {
+         "imenovalnik": 0,
+         "rodilnik": 1,
+         "dajalnik": 2,
+         "tožilnik": 3,
+         "mestnik": 4,
+         "orodnik": 5
+      },
+      "naborSklonovAng": {
+         "Nom": 0,
+         "Gen": 1,
+         "Dat": 2,
+         "Acc": 3,
+         "Loc": 4,
+         "Ins": 5
+      },
+      "naborSpolovSlo": {
+         "moški": 0,
+         "ženski": 1,
+         "srednji": 2
+      },
+      "naborSpolovAng": {
+         "Masc": 0,
+         "Fem": 1,
+         "Neut": 2
+      },
+      "naborStevilSlo": {
+         "singular": 0,
+         "dual": 1,
+         "plural": 2
+      },
+      "naborStevilAng": {
+         "Sing": 0,
+         "Dual": 1,
+         "Plur": 2
+      },
+      "besedneVrste": [
+         "samostalnik",
+         "pridevnik",
+         "glagol",
+         "zaimek",
+         "medmet",
+         "členek",
+         "predlog"
+      ]
+   },
+   "Stevila": {
+      "enice": {
+         "0": "nič",
+         "1": "ena",
+         "2": "dva",
+         "3": "tri",
+         "4": "štiri",
+         "5": "pet",
+         "6": "šest",
+         "7": "sedem",
+         "8": "osem",
+         "9": "devet"
+      },
+      "eniceBrezPripon": {
+         "0": "nič",
+         "1": "en",
+         "2": "dv",
+         "3": "tr",
+         "4": "štir",
+         "5": "pet",
+         "6": "šest",
+         "7": "sedm",
+         "8": "osm",
+         "9": "devet"
+      },
+      "desetice": [
+         "",
+         "deset",
+         "dvajset",
+         "trideset",
+         "štirideset",
+         "petdeset",
+         "šestdeset",
+         "sedemdeset",
+         "osemdeset",
+         "devetdeset"
+      ],
+      "stotice": [
+         "",
+         "sto",
+         "dvesto",
+         "tristo",
+         "štiristo",
+         "petsto",
+         "šeststo",
+         "sedemsto",
+         "osemsto",
+         "devetsto"
+      ],
+      "stevilkeMedDesetInDvajset": [
+         "enajst",
+         "dvanajst",
+         "trinajst",
+         "štirinajst",
+         "petnajst",
+         "šestnajst",
+         "sedemnajst",
+         "osemnajst",
+         "devetnajst"
+      ],
+      "mejniki": [
+         "bilijon",
+         "milijarda",
+         "milijon",
+         "tisoč",
+         "sto"
+      ],
+      "stevke": [
+         "0",
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7",
+         "8",
+         "9"
+      ],
+      "izgovorjavaMedEnaInPet": {
+         "1": [
+            "en",
+            "ena",
+            "eno"
+         ],
+         "2": [
+            "dva",
+            "dve",
+            "dve"
+         ],
+         "3": [
+            "trije",
+            "tri",
+            "tri"
+         ],
+         "4": [
+            "štirje",
+            "štiri",
+            "štiri"
+         ]
+      },
+      "vrstnaStevila": [
+         "",
+         "prv",
+         "drug",
+         "tretj",
+         "četrt",
+         "pet",
+         "šest",
+         "sedm",
+         "osm",
+         "devet"
+      ],
+      "koncniceVrstnihStevil": [
+         [
+            ["i", "a", "o"],
+            ["ega", "e", "ega"],
+            ["emu", "i", "emu"],
+            ["ega", "o", "o"],
+            ["em", "i", "em"],
+            ["im", "o", "im"]
+         ],
+         [
+            ["a", "i", "i"],
+            ["ih", "ih", "ih"],
+            ["ima", "ima", "ima"],
+            ["a", "i", "i"],
+            ["ih", "ih", "ih"],
+            ["ima", "ima", "ima"]
+         ],
+         [
+            ["i", "e", "a"],
+            ["ih", "ih", "ih"],
+            ["im", "im", "im"],
+            ["e", "e", "a"],
+            ["ih", "ih", "ih"],
+            ["imi", "imi", "imi"]
+         ]
+      ]
+   },
+   "Meseci": [
+      {
+         "mesec": "januar>",
+         "sklanjanje": [
+            "",
+            "ja",
+            "ju",
+            "",
+            "ju",
+            "jem"
+         ]
+      },
+      {
+         "mesec": "februar>",
+         "sklanjanje": [
+            "",
+            "ja",
+            "ju",
+            "",
+            "ju",
+            "jem"
+         ]
+      },
+      {
+         "mesec": "mar>",
+         "sklanjanje": [
+            "ec",
+            "ca",
+            "cu",
+            "ec",
+            "cu",
+            "cem"
+         ]
+      },
+      {
+         "mesec": "april>",
+         "sklanjanje": [
+            "",
+            "a",
+            "u",
+            "",
+            "u",
+            "om"
+         ]
+      },
+      {
+         "mesec": "maj>",
+         "sklanjanje": [
+            "",
+            "a",
+            "u",
+            "",
+            "u",
+            "em"
+         ]
+      },
+      {
+         "mesec": "junij>",
+         "sklanjanje": [
+            "",
+            "a",
+            "u",
+            "",
+            "u",
+            "em"
+         ]
+      },
+      {
+         "mesec": "julij>",
+         "sklanjanje": [
+            "",
+            "a",
+            "u",
+            "",
+            "u",
+            "em"
+         ]
+      },
+      {
+         "mesec": "avgust>",
+         "sklanjanje": [
+            "",
+            "a",
+            "u",
+            "",
+            "u",
+            "om"
+         ]
+      },
+      {
+         "mesec": "septemb>",
+         "sklanjanje": [
+            "er",
+            "ra",
+            "ru",
+            "er",
+            "ru",
+            "rom"
+         ]
+      },
+      {
+         "mesec": "oktob>",
+         "sklanjanje": [
+            "er",
+            "ra",
+            "ru",
+            "er",
+            "ru",
+            "rom"
+         ]
+      },
+      {
+         "mesec": "novemb>",
+         "sklanjanje": [
+            "er",
+            "ra",
+            "ru",
+            "er",
+            "ru",
+            "rom"
+         ]
+      },
+      {
+         "mesec": "decemb>",
+         "sklanjanje": [
+            "er",
+            "ra",
+            "ru",
+            "er",
+            "ru",
+            "rom"
+         ]
+      }
+   ],
+   "Predlog":{
+      "vezaveSklonov": {
+          "do": 1,
+          "iz": 1,
+          "od": 1,
+          "brez": 1,
+          "z": 1,
+          "s": 1,
+          "proti": 2,
+          "kljub": 2,
+          "k": 2,
+          "h": 2,
+          "zaradi": 2,
+          "razen": 2,
+          "čez": 3,
+          "skozi": 3,
+          "zoper": 3,
+          "ob": 3,
+          "nad": 3,
+          "pod": 3,
+          "pred": 3,
+          "za": 3,
+          "med": 3,
+          "o": 4,
+          "po": 4,
+          "pri": 4,
+          "v": 4,
+          "na": 4
+      },
+      "nabor":{
+         "rodilnik":[
+            "[Bb]rez",
+            "[Dd]o",
+            "[Ii]z",
+            "[Oo]d",
+            "[Zz]a",
+			"[Nn]ekaj"
+         ],
+         "dajalnik":[
+            "[Hh]",
+            "[Kk]",
+            "[Pp]roti",
+            "[Kk]ljub"
+         ],
+         "tozilnik":[
+            "[Čč]ez",
+            "[Ss]kozi",
+            "[Zz]oper",
+            "[Pp]o",
+            "[Mm]ed",
+            "[Nn]ad",
+            "[Pp]od",
+            "[Pp]red",
+            "[Zz]a",
+            "[Nn]a",
+            "[Oo]b",
+            "[Vv]"
+         ],
+         "mestnik":[
+            "[Oo]",
+			"[Pp]ri"
+         ],
+         "orodnik":[
+            "[Zz]",
+            "[Ss]"
+         ]
+      }
+   },
+   "predponeEnot": {
+      "": "",
+      "p": "piko",
+      "n": "nano",
+      "μ": "mikro",
+      "µ": "mikro",
+      "m": "mili",
+      "c": "centi",
+      "d": "deci",
+      "dc": "deci",
+      "da": "deka",
+      "dk": "deka",
+      "h": "hekto",
+      "k": "kilo",
+      "M": "mega",
+      "G": "giga",
+      "T": "tera"
+   }
+}
