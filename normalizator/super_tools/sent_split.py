@@ -1,7 +1,8 @@
-import classla
-nlp = classla.Pipeline(lang="sl", tokenize_pretokenized=True)
-import super_tools.word_tokenizer as wt
-from super_tools.standardize_quotes import standardize_quotes
+from normalizator.sentence import PosTagger
+import normalizator.super_tools.word_tokenizer as wt
+from normalizator.super_tools.standardize_quotes import standardize_quotes
+
+pt = PosTagger()
 
 def split_sent(sent):
     sent=" ".join(standardize_quotes(sent).split())
@@ -41,7 +42,7 @@ def split_sent(sent):
                     else:
                         if not dictx: #and not change:
                             #NOTE: check
-                            dictx=nlp([toks]).to_dict()[0][0]
+                            dictx=pt.pos_tag(toks)
                         if dictx[i+1]["ner"]=="O":
                             subsents.append(sent[:S[i][1][1]])
                             toks=toks[i+1:]

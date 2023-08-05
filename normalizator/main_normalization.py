@@ -15,13 +15,15 @@ import normalizator.word_type_check as word_type_check
 from normalizator.word import Word
 from normalizator.sentence import Sentence
 
-from super_tools.word_tokenizer import word_tokenizer, spans
-import super_tools.sent_split as splitter
+from normalizator.super_tools.word_tokenizer import word_tokenizer, spans
+import normalizator.super_tools.sent_split as splitter
 from normalizator.configatron import *
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # normalizes input text sentence by sentence and returns normalized text as string
 def normalize_text(text: str, custom_config=None):
-    with open(r"normalizator/util/config/basic_config.json", encoding="utf-8") as json_file:
+    with open(os.path.join(current_directory, "util/config/basic_config.json"), encoding="utf-8") as json_file:
         base_config=json.load(json_file)
 
     text = utils.standardize_quotes(' '.join(text.split()))

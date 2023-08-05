@@ -16,3 +16,5 @@ tests/test_script.py
 /tests/test_file.py
 normalizator/test.py
 .vscode/
+build
+normalizator.egg-info

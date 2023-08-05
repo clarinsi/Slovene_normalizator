@@ -10,7 +10,7 @@ from normalizator.util import json_reader
 from normalizator.utils_helpers import dot_in_the_middle, is_decimal, is_fraction, is_numeric, isordinal
 from normalizator.word import Word
 
-from super_tools.slicer import slicer
+from normalizator.super_tools.slicer import slicer
 
 # global number, for single json reading
 prefixes = {'': '', 'p': 'piko', 'n': 'nano', 'μ': 'mikro', 'µ': 'mikro', 'm': 'mili', 'c': 'centi', 'd': 'deci', 'dc': 'deci', 'da': 'deka', 'dk': 'deka', 'h': 'hekto', 'k': 'kilo', 'M': 'mega', 'G': 'giga', 'T': 'tera'}

@@ -1,11 +1,29 @@
 from normalizator.word import Word
 import classla
 classla.download("sl")
-from super_tools.word_tokenizer import word_tokenizer, spans
-classla_pos_tagger = classla.Pipeline(lang="sl", tokenize_pretokenized=True)
+from normalizator.super_tools.word_tokenizer import word_tokenizer, spans
 
-def pos_tag(toks):
-    return classla_pos_tagger([toks]).to_dict()[0][0]
+class PosTagger:
+    _instance = None
+    classla_pos_tagger = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+            cls._instance.initialize()
+        return cls._instance
+    
+    def initialize(self):
+        if self.classla_pos_tagger is None:
+            print("Creating tokenizer instance ...")
+            self.classla_pos_tagger = classla.Pipeline(lang="sl", tokenize_pretokenized=True)
+
+
+    def pos_tag(self, toks):
+        return self.classla_pos_tagger([toks]).to_dict()[0][0]
+    
+
+pos_tagger = PosTagger()
 
 def add_tags(sentence):
     sentence_length=sentence.length()
@@ -29,7 +47,7 @@ class Sentence:
 
     def tag(self):
         if not self.tags:
-            self.tags=pos_tag(self.tokens)
+            self.tags=pos_tagger.pos_tag(self.tokens)
             add_tags(self)
 
     def get_word(self, index):

@@ -2,15 +2,18 @@ from operator import itemgetter
 from re import match
 import pickle
 import sys
+import os
 from normalizator.sentence import Sentence
 from normalizator.word import Word
-from super_tools.word_tokenizer import word_tokenizer
-from super_tools.slicer import slicer
-import support.num_generator1mio as ng
+from normalizator.super_tools.word_tokenizer import word_tokenizer
+from normalizator.super_tools.slicer import slicer
+import normalizator.support.num_generator1mio as ng
 
 prefixes = {'': '', 'p': 'piko', 'n': 'nano', 'μ': 'mikro', 'µ': 'mikro', 'm': 'mili', 'c': 'centi', 'd': 'deci', 'dc': 'deci', 'da': 'deka', 'dk': 'deka', 'h': 'hekto', 'k': 'kilo', 'M': 'mega', 'G': 'giga', 'T': 'tera'}
 
-with open('support/Sloleks_lemmas_with_forms_v2.pickle', "rb") as handle:
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
+with open(os.path.join(current_directory, 'support/Sloleks_lemmas_with_forms_v2.pickle'), "rb") as handle:
     sloleks_forms_dict=pickle.load(handle)
 
 if "promile" in sloleks_forms_dict:
@@ -22,7 +25,7 @@ if "newton" not in sloleks_forms_dict and "njuton" in sloleks_forms_dict:
         temp[key]=(sloleks_forms_dict["njuton"][key][0].replace("njuton", "newton"), sloleks_forms_dict["njuton"][key][1])
     sloleks_forms_dict["newton"]=temp
 
-with open('support/valenca-interres-new.pickle', 'rb') as handle:
+with open(os.path.join(current_directory, 'support/valenca-interres-new.pickle'), 'rb') as handle:
     infoglagol=pickle.load(handle)
 
 units=['E', 'ha', 'mol', 'kcal', 'tbl.', 'ted.', 'vp.', 'Wh', 'KM', '´', '´´', '˝', '‰', 'B', 'min', 'm', "m2", "m3", 'g', 'l', 'L', 't', 'b', 'N', 'Pa', 'V', 'W', 'A', 's', 
