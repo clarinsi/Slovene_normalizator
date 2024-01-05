@@ -233,6 +233,8 @@ def get_correct_form(lema, POS=None, spol=None, sklon=None, oseba=None, oblika=N
 #gets closest word if more than one applies
 def get_closest(list_of_dicts, i, return_index=False):
     I=i+1
+    if len(list_of_dicts) == 0:
+        return None
     if return_index:
         return sorted([(abs(el["id"]-I), el) for el in list_of_dicts], key=itemgetter(0))[0][1]["id"]-1
     return sorted([(abs(el["id"]-I), el) for el in list_of_dicts], key=itemgetter(0))[0][1]

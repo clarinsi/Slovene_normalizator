@@ -35,17 +35,17 @@ def get_abbreviation_declension_adj(config, sentence: Sentence, word_index, lema
             tempdict=instant_tempdict(tok)
     P=prev_whole(i, minidicts)
     N=next_whole(i, minidicts)
-    if i<len(minidicts)-1 and N and minidicts[N]["upos"] in ["ADJ"]:
+    if i<len(minidicts)-1 and N != None and minidicts[N]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[N])]
         if Infos[:3]==["moški", "tožilnik", "ednina"]:
             if minidicts[N]["text"].endswith("ega"):
                 Infos[3]="da"
             elif minidicts[N]["text"].endswith("i"):
                 Infos[3]="ne"
-    elif i<len(minidicts)-1 and N and minidicts[N]["upos"] in ["NOUN"]:
+    elif i<len(minidicts)-1 and N != None and minidicts[N]["upos"] in ["NOUN"]:
         Infos=[sync_names[x] for x in get_info(minidicts[N])]
         
-    elif i>0 and P and minidicts[P]["upos"] in ["ADJ"]:
+    elif i>0 and P != None and minidicts[P]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P])]
         if Infos[:3]==["moški", "tožilnik", "ednina"]:
             if minidicts[P]["text"].endswith("ega"):
@@ -53,14 +53,14 @@ def get_abbreviation_declension_adj(config, sentence: Sentence, word_index, lema
             elif minidicts[P]["text"].endswith("i"):
                 Infos[3]="ne"
         
-    elif i>1 and P and isordinal(minidicts[P]["text"]) and minidicts[P-1]["upos"] in ["ADJ"]:
+    elif i>1 and P != None and isordinal(minidicts[P]["text"]) and minidicts[P-1]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P-1])]
         if Infos[:3]==["moški", "tožilnik", "ednina"]:
             if minidicts[P-1]["text"].endswith("ega"):
                 Infos[3]="da"
             elif minidicts[P-1]["text"].endswith("i"):
                 Infos[3]="ne"
-    elif P and minidicts[P]["upos"] in ["ADP"]:
+    elif P != None and minidicts[P]["upos"] in ["ADP"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P])]
     elif any(x["upos"] == "VERB" for x in slicer(minidicts, i, 4)):
         Infos=[sync_names[x] for x in get_info(get_closest([x for x in slicer(minidicts, i, 4) if x["upos"] == "VERB"], i))]
@@ -108,9 +108,12 @@ def get_abbreviation_declension_noun(config, sentence: Sentence, word_index, lem
     if not lema and not tempdict: lema, tempdict = make_lemma_and_tempdict(config, word.un_normalized)
     P=prev_whole(i, minidicts)
     N=next_whole(i, minidicts)
+
     if i>0 and (is_decimal(minidicts[i-1]["text"]) or is_fraction(minidicts[i-1]["text"])):
+        print(" --- fraction")
         Infos=[get_gen(lema, tempdict), "rodilnik", get_nr(lema, tempdict)]
     elif ("-" in minidicts[i-1]["text"].replace("–", "-") and is_decimal(minidicts[i-1]["text"].replace("–", "-").split("-")[-1])) or ("x" in minidicts[i-1]["text"].replace("×", "x") and is_decimal(minidicts[i-1]["text"].replace("×", "x").split("x")[-1]) or is_fraction(minidicts[i-1]["text"].replace("–", "-").split("-")[-1])):
+        print(" --- multiplication")
         Infos=[get_gen(lema, tempdict), "rodilnik", get_nr(lema, tempdict)]
     elif ("x" in minidicts[i-1]["text"].replace("×", "x") and minidicts[i-1]["text"].replace("×", "x").split("x")[-1].isnumeric()):
         if int(minidicts[i-1]["text"].replace("×", "x").split("x")[-1][-2:])<5:
@@ -119,47 +122,60 @@ def get_abbreviation_declension_noun(config, sentence: Sentence, word_index, lem
             Infos=[get_gen(lema, tempdict), "rodilnik", get_nr_from_int(minidicts[i-1]["text"].replace("×", "x").split("x")[-1])]
     elif i>0 and minidicts[i-1]["text"].isnumeric() and not 0<int(minidicts[i-1]["text"])<5 and not is_fraction(minidicts[i-1]["text"]):
         Infos=[get_gen(lema, tempdict), "rodilnik", get_nr_from_int(minidicts[i-1]["text"])]
-    elif i>0 and P and minidicts[P]["upos"] in ["ADJ"]:
+    elif i>0 and P != None and minidicts[P]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P])]
         if Infos[:3]==["moški", "tožilnik", "ednina"]:
             if minidicts[N]["text"].endswith("ega"):
                 Infos[3]="da"
             elif minidicts[N]["text"].endswith("i"):
                 Infos[3]="ne"
-    elif i>1 and P and isordinal(minidicts[P]["text"]) and minidicts[P-1]["upos"] in ["ADJ"]:
+    elif i>1 and P != None and isordinal(minidicts[P]["text"]) and minidicts[P-1]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P-1])]
         if Infos[:3]==["moški", "tožilnik", "ednina"]:
             if minidicts[P-1]["text"].endswith("ega"):
                 Infos[3]="da"
             elif minidicts[P-1]["text"].endswith("i"):
                 Infos[3]="ne"
-    elif i>0 and P and minidicts[P]["upos"] in ["ADP"]:
-        if i<len(minidicts) and N and minidicts[N]["ner"]!="O":
+    elif i>0 and P != None and minidicts[P]["upos"] in ["ADP"]:
+        if i<len(minidicts) and N != None and minidicts[N]["ner"]!="O":
             Infos=[sync_names[x] for x in get_info(minidicts[N])][:1]+[sync_names[x] for x in get_info(minidicts[P])][1:]
         else:
             if get_gen(lema, tempdict)!="moški" and [sync_names[x] for x in get_info(minidicts[P])][-1] in ["da", "ne"]:
                 Infos=[get_gen(lema, tempdict)]+[sync_names[x] for x in get_info(minidicts[P])][1:-1]
             else:
                 Infos=[get_gen(lema, tempdict)]+[sync_names[x] for x in get_info(minidicts[P])][1:]
-    elif i>0 and P and minidicts[P]["upos"] in ["NOUN"]:
-        if i<len(minidicts)-1 and N and minidicts[N]["upos"]=="PROPN":
+    elif i>0 and P != None and minidicts[P]["upos"] in ["NOUN"]:
+        if i<len(minidicts)-1 and N != None and minidicts[N]["upos"]=="PROPN":
             Infos=[sync_names[x] for x in get_info(minidicts[N])]
             
         else:
             Infos=[get_gen(lema, tempdict), "rodilnik", "ednina"]
             
-    elif i<len(minidicts)-1 and N and minidicts[N]["upos"] in ["PROPN"]:
+    elif i<len(minidicts)-1 and N != None and minidicts[N]["upos"] in ["PROPN"]:
         Infos=[sync_names[x] for x in get_info(minidicts[N])]
         
-    elif P and minidicts[P]["upos"] in ["ADP"]:
+    elif P != None and minidicts[P]["upos"] in ["ADP"]:
         Infos=[sync_names[x] for x in get_info(minidicts[P])]
-    elif any(x["upos"] == "VERB" for x in slicer(minidicts, i, 4)):
-        Infos=[sync_names[x] for x in get_info(get_closest([x for x in slicer(minidicts, i, 4) if x["upos"] == "VERB"], i))]
+    elif any(x["upos"] == "VERB" for x in slicer(minidicts, i, 4)) or sentence.last_verb:
+        closest = get_closest([x for x in slicer(minidicts, i, 4) if x["upos"] == "VERB"], i)
+        if closest:
+            sentence.last_verb = closest
+        Infos=[sync_names[x] for x in get_info(sentence.last_verb)]
         
         try:
             preclosest=get_closest([x for x in slicer(minidicts, i, 4, "L") if x["upos"] == "VERB"], i)
+            
+            if preclosest:
+                sentence.pre_last_verb = preclosest
+            else: raise IndexError()
         except IndexError:
-            preclosest=get_closest([x for x in slicer(minidicts, i, 4, "R") if x["upos"] == "VERB"], i)
+            try:
+                preclosest=get_closest([x for x in slicer(minidicts, i, 4, "R") if x["upos"] == "VERB"], i)
+                if preclosest: 
+                    sentence.pre_last_verb = preclosest
+                else: raise IndexError()
+            except:
+                preclosest = sentence.pre_last_verb
         try:
             val=dict([x for x in infoglagol if x[0]==preclosest["lemma"]][0][1]) 
         except IndexError:
@@ -171,7 +187,7 @@ def get_abbreviation_declension_noun(config, sentence: Sentence, word_index, lem
         list_of_roles=sorted([("PAT", Pat), ("REC", Rec), ("ACT", Act)], key=itemgetter(1), reverse=True)
         case_dict={"PAT": "Acc", "REC": "Dat", "ACT": "Nom"}
         
-        if is_negated_verb(sentence, get_closest([preclosest], i, True)):
+        if is_negated_verb(sentence, preclosest["id"]):
            case_dict={"PAT": "Gen", "REC": "Dat", "ACT": "Nom"} 
         I=preclosest["id"]-1
         
@@ -210,7 +226,7 @@ def get_number_declension(sentence: Sentence, word_index):
             tempdict=instant_tempdict(tok)
     P=prev_whole(i, minidicts)
     N=next_whole(i, minidicts)
-    if i<len(minidicts)-1 and N and minidicts[N]["upos"] in ["ADJ"]:
+    if i<len(minidicts)-1 and N != None and minidicts[N]["upos"] in ["ADJ"]:
         Infos=[sync_names[x] for x in get_info(minidicts[N])]
         if int(word.un_normalized)>4 and Infos[1]=="rodilnik":
             raise NotImplementedError("To ni v resnici error, samo vodi do prave poti.")
@@ -219,7 +235,7 @@ def get_number_declension(sentence: Sentence, word_index):
                 Infos[3]="da"
             elif minidicts[N]["text"].endswith("i"):
                 Infos[3]="ne"
-    elif i<len(minidicts)-1 and N and minidicts[N]["upos"] in ["NOUN"]:
+    elif i<len(minidicts)-1 and N != None and minidicts[N]["upos"] in ["NOUN"]:
         Infos=[sync_names[x] for x in get_info(minidicts[N])]
         if int(word.un_normalized)>4 and Infos[1]=="rodilnik":
             raise NotImplementedError("To ni v resnici error, samo vodi do prave poti.")

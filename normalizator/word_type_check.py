@@ -147,6 +147,18 @@ def is_unit(config, token):
     if token in units_with_prefixes or ("/" in token and all(p in units_with_prefixes for p in token.split("/"))): return True
     return False
 
+def is_number_with_unit(config, token):
+    # Attempt to match the pattern to the input string
+    r = match(r'^(\d+)(\D+)$', token)
+    
+    if r:
+        # If the pattern matches, extract the number and text parts
+        number_part = r.group(1)
+        text_part = r.group(2)
+
+        return is_unit(config, text_part)
+
+    return False
 
 def is_symbol(config, word: str):
     symbols = set(config['symbol']['set'].keys()) - {",", ".", ":", "!", '"', "?"}

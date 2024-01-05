@@ -21,6 +21,8 @@ from normalizator.configatron import *
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
+debug = True
+
 # normalizes input text sentence by sentence and returns normalized text as string
 def normalize_text(text: str, custom_config=None):
     with open(os.path.join(current_directory, "util/config/basic_config.json"), encoding="utf-8") as json_file:
@@ -77,8 +79,10 @@ def normalize_text(text: str, custom_config=None):
 
 def normalize_sentence(config, sentence: Sentence):
     sentence_length = sentence.length()
+    sentence.tag()
     toks=sentence.tokens
     sep_abbrs=dict(pair for d in [{tuple(x.split()): config["abbr"]["set"][x]}  for x in config["abbr"]["set"] if " " in x] for pair in d.items())
+    # abbrevations
     if config["abbr"]["normalize"]=="true" and any(is_sublist(list(key), lower_list(toks)) for key in sep_abbrs):
         Ks=[K for K in sep_abbrs if is_sublist(list(K), lower_list(toks))]
         for K in Ks:
@@ -155,7 +159,7 @@ def normalize_sentence(config, sentence: Sentence):
             
         except Exception as e:  # if error during normalization, do not normalize that word
             logging.error(" " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " Error when normalizing word: " +
-                          sentence.get_word(i).un_normalized + " EXCEPTION: " + str(e) + " IN SENTENCE: " + sentence.text)
+                          sentence.get_word(i).un_normalized + " EXCEPTION: " + str(e) + " IN SENTENCE: " + sentence.text, exc_info=True)
             sentence.status=-1
         i+=1
     return make_final_sentence(config, sentence)
@@ -164,6 +168,7 @@ def normalize_sentence(config, sentence: Sentence):
 def classify_word(config, sentence: Sentence, word_index):
 
     word: Word = sentence.get_word(word_index)
+    if (debug): print(f"classyfying word {word.un_normalized}")
     if word.status!="Normal":
         return word
     previous_word: Word = sentence.get_word(word_index - 1)  # sentence returns None if word does not exist
@@ -173,6 +178,7 @@ def classify_word(config, sentence: Sentence, word_index):
     word.processed=True
 
     if word_type_check.is_email(word.un_normalized):
+        if (debug): print(f"- email")
         word.type = "email"
         if boolify(config[word.type]["normalize"]):
             word.normalized=creator.create_email(config, word.un_normalized)
@@ -181,6 +187,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
     # LINK
     if word_type_check.is_link(config, word.un_normalized):
+        if (debug): print(f"- link")
         config_modified = deepcopy(config)
         config_modified['symbol']['set']["/"] = "poševnica"
         word.type = "link"
@@ -191,6 +198,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
     interval_type = word_type_check.is_interval(config, sentence, word_index)
     if interval_type:
+        if (debug): print(f"- interval")
         word.type="num"
         word.subtype=interval_type
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -200,6 +208,7 @@ def classify_word(config, sentence: Sentence, word_index):
         return word
         
     if word_type_check.is_multiplication(word.un_normalized):
+        if (debug): print(f"- multiplication")
         word.type="num"
         word.subtype="number"
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -209,6 +218,7 @@ def classify_word(config, sentence: Sentence, word_index):
         return word
 
     if word_type_check.is_slash(word):
+        if (debug): print(f"- slash")
         word.type="complex"
         word.subtype="slash"
         if boolify(config[word.type]["normalize"]):
@@ -218,6 +228,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
 
     if word_type_check.is_math_operation(word):
+        if (debug): print(f"- math")
         word.type="complex"
         word.subtype="math_operation"
         if boolify(config[word.type]["normalize"]):
@@ -226,6 +237,7 @@ def classify_word(config, sentence: Sentence, word_index):
         return word
     
     if word.un_normalized.endswith("-") and word.un_normalized[:-1].isnumeric():
+        if (debug): print(f"- complex")
         word.type="complex"
         word.subtype="number"
         if boolify(config[word.type]["normalize"]) and boolify(config["num"]["normalize"]):
@@ -236,6 +248,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
     #SPECIAL FRACTION SYMBOLS
     if word_type_check.is_special_fraction(word.un_normalized):
+        if (debug): print(f"- fraction")
         word.type="num"
         word.subtype="fraction"
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -251,15 +264,25 @@ def classify_word(config, sentence: Sentence, word_index):
 
     #COMPLEX DURATION (e.g. 2:15,23)
     if word_type_check.is_complex_duration(config, sentence, word_index):
+        if (debug): print(f"- duration")
         word.type="num"
         word.subtype="complex_duration"
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
             word.normalized = creator.create_complex_duration(config, word.un_normalized)
             word.status="normalized"
         return word
+    
+    if word_type_check.is_number_with_unit(config, word.un_normalized):
+        if (debug): print(f"- number with unit")
+        word.type = "unit"
+        if boolify(config[word.type]["normalize"]):
+            word.normalized = creator.create_number_and_unit(config, word.un_normalized, sentence, word_index)
+            word.status = "normalized"
+        return word
 
     # UNIT
     if word_type_check.is_unit(config, word.un_normalized) and previous_word and (is_numeric(previous_word.un_normalized) or is_decimal(previous_word.un_normalized) or is_interval(previous_word.un_normalized) or word_type_check.is_multiplication(previous_word.un_normalized)):
+        if (debug): print(f"- unit")
         word.type="unit"
         token=word.un_normalized
         postf=""
@@ -278,9 +301,10 @@ def classify_word(config, sentence: Sentence, word_index):
             word.normalized=creator.create_unit(config, word.un_normalized, declension, lema, tempdict)
             update_minidict(sentence, word_index, word.normalized, declension, "samostalnik")
         return word
-
+    
     # SYMBOL
     if word_type_check.is_symbol(config, word.un_normalized):
+        if (debug): print(f"- symbol")
         word.type="symbol"
         if boolify(config[word.type]["normalize"]):
             word.normalized=creator.create_symbol(config, word.un_normalized)
@@ -289,6 +313,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
     # COMPLEX UNIT 1 e.g. 100/min
     if word_type_check.is_special_unit(config, sentence, word_index):
+        if (debug): print(f"- complex unit")
         word.type="complex_unit"
         if boolify(config["unit"]["normalize"]):
             word.normalized=creator.create_complex_unit_1(config, word.un_normalized)
@@ -296,6 +321,7 @@ def classify_word(config, sentence: Sentence, word_index):
         return word
 
     elif word_type_check.is_alnum(word.un_normalized):
+        if (debug): print(f"- alnum")
         word.type="num"
         word.subtype = "alnum"
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -305,6 +331,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
     #za slabo tokenizirane povedi
     elif word.un_normalized.endswith(".") and word_type_check.is_alnum(word.un_normalized[:-1]):
+        if (debug): print(f"- bad tokenized alnum")
         word.type="num"
         word.subtype = "alnum"
         if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -314,9 +341,11 @@ def classify_word(config, sentence: Sentence, word_index):
 
     # ONE WORD ABBREVIATION
     if word_index==sentence.length()-2 and word_type_check.is_abbreviation(config, sentence, word.un_normalized+".", word_index):
+        if (debug): print(f"- one word abr")
         word.un_normalized=word.un_normalized+"."
 
     if word_type_check.is_abbreviation(config, sentence, word.un_normalized, word_index):
+        if (debug): print(f"- abbr")
         word.type = "abbr"
         if boolify(config[word.type]["normalize"]):
             word.un_normalized=word.un_normalized.lower()
@@ -362,6 +391,7 @@ def classify_word(config, sentence: Sentence, word_index):
     
     # COMPLEX WORD (words consisting of letters, numbers, symbols, ...)
     elif word_type_check.is_complex(config, word, is_last_word):
+        if (debug): print(f"- complex word")
         word.type="complex"
         word.subtype="complex"
         if boolify(config[word.type]["normalize"]):
@@ -372,6 +402,7 @@ def classify_word(config, sentence: Sentence, word_index):
     # ROMAN NUMERAL
     roman_numeral_type = word_type_check.is_roman_numeral(sentence, word_index)
     if roman_numeral_type != -1:
+        if (debug): print(f"- roman")
         word.type="roman_numeral"
         sentence.get_word(word_index).un_normalized=utils.roman_numeral_to_int(sentence.get_word(word_index).un_normalized)
         if boolify(config[word.type]["normalize"]):
@@ -385,9 +416,11 @@ def classify_word(config, sentence: Sentence, word_index):
         return word
 
     if word_type_check.contains_number(word.un_normalized):
+        if (debug): print(f"- contains numbers")
         number_of_parts = word_type_check.is_phone_number(sentence, word_index)
 
         if number_of_parts != -1:
+            if (debug): print(f"-- phone number")
             norms=creator.create_phone_number(sentence.tokens[word_index:word_index+number_of_parts])
             for i in range(number_of_parts):
                 word=sentence.get_word(word_index+i)
@@ -401,6 +434,7 @@ def classify_word(config, sentence: Sentence, word_index):
         # DATE WITH YEAR (with whitespaces)
         if next_word and word_index + 2 < sentence.length() and word_type_check.is_date_with_year(
                 (word.un_normalized + next_word.un_normalized + sentence.get_word(word_index + 2).un_normalized).replace(" ", "")):
+            if (debug): print(f"-- date with year")
             declension = date_declension(sentence, word_index)
             normalized=creator.create_date_with_year(config, [word.un_normalized, next_word.un_normalized, sentence.get_word(word_index + 2).un_normalized], declension)
             for i in range(len(normalized)):
@@ -414,6 +448,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # DATE WITHOUT YEAR (with whitespaces)
         if next_word and next_word.text!="." and word_type_check.is_date_without_year((word.un_normalized + next_word.un_normalized).replace(" ", "")):
+            if (debug): print(f"-- date without year")
             declension = date_declension(sentence, word_index)
             normalized = creator.create_date_without_year(config, [word.un_normalized, next_word.un_normalized], declension)
             for i in range(len(normalized)):
@@ -426,6 +461,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # DATE YEAR (year only)
         if word_type_check.is_date_year(config, sentence, word_index, is_last_word):
+            if (debug): print(f"-- date year only")
             word.type="num"
             word.subtype="date"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -435,6 +471,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         result_type=word_type_check.is_result(sentence, word_index)
         if result_type==1:
+            if (debug): print(f"-- num result")
             word.type="num"
             word.subtype="result"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -442,6 +479,7 @@ def classify_word(config, sentence: Sentence, word_index):
                 word.status="normalized"
             return word
         elif result_type==2:
+            if (debug): print(f"-- num result 2")
             normalized = creator.create_result([word.un_normalized, next_word.un_normalized, sentence.get_word(word_index+2).un_normalized])
             for i in range(len(normalized)):
                 W=sentence.get_word(word_index+i)
@@ -454,6 +492,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # WHOLE NUMBER
         if word_type_check.is_whole_number(word.text, is_last_word, sentence, next_word=next_word, tokenize_sentence=sentence.tokenized):
+            if (debug): print(f"-- whole number")
             word.un_normalized=word.text.replace(".", "").replace("–", "-")
             word.type="num"
             word.subtype="number"
@@ -474,6 +513,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # HOUR
         if word_type_check.is_hour(sentence, word_index):
+            if (debug): print(f"-- hour")
             word.type="num"
             word.subtype="hour"
             if boolify(config[word.type]["normalize"]):
@@ -484,6 +524,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # DATE WITHOUT YEAR
         if word_type_check.is_date_without_year(word.un_normalized):
+            if (debug): print(f"-- date without year")
             word.type="num"
             word.subtype="date"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -493,6 +534,7 @@ def classify_word(config, sentence: Sentence, word_index):
             return word
         # DATE WITH YEAR
         if word_type_check.is_date_with_year(word.un_normalized):
+            if (debug): print(f"-- date with year")
             word.type="num"
             word.subtype="date"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -503,6 +545,7 @@ def classify_word(config, sentence: Sentence, word_index):
         
         # DECIMAL NUMBER
         if word_type_check.is_decimal_number(word.un_normalized):
+            if (debug): print(f"-- decimal number")
             word.type="num"
             word.subtype="decimal_number"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -510,6 +553,7 @@ def classify_word(config, sentence: Sentence, word_index):
                 word.status="normalized"
             return word
         if word_type_check.is_decimal_number_additions(sentence, word_index):
+            if (debug): print(f"-- decimal number 2")
             word.type="num"
             word.subtype="decimal_number"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -519,6 +563,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # SECTION
         if word_type_check.is_section(word.un_normalized):
+            if (debug): print(f"-- section")
             word.type="num"
             word.subtype="section"
             if boolify(config["num"]["normalize"]) and boolify(config["num"]["subtypes"][word.subtype]["normalize"]):
@@ -528,6 +573,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # ORDINAL NUMBER
         if word_type_check.is_ordinal_number(sentence, word_index):
+            if (debug): print(f"-- ordinal number")
             word.type="num"
             word.subtype="ordinal_number"
             if word.un_normalized.startswith("0"):
@@ -557,6 +603,7 @@ def classify_word(config, sentence: Sentence, word_index):
                     word.declension=None
             return word
         elif word_type_check.is_times(word.un_normalized):
+            if (debug): print(f"-- times")
             word.type="num"
             word.subtype="times"
             word.normalized=creator.create_times(word.un_normalized)
@@ -565,6 +612,7 @@ def classify_word(config, sentence: Sentence, word_index):
 
         # unknown/unsupported number format
         if boolify(config["not_supported"]["normalize"]):
+            if (debug): print(f"- unsupported number")
         #if config["not_supported"]["normalize"] == "true":
             other = creator.create_complex_word(config, word.un_normalized, is_last_word, default_normalization=True)
             return other
@@ -573,12 +621,14 @@ def classify_word(config, sentence: Sentence, word_index):
 
     # unknown/unsupported
     if boolify(config["not_supported"]["normalize"]) and not word_type_check.is_regular_word(word.un_normalized):
+        if (debug): print(f"- unsupported")
         word.type="complex"
         word.subtype="unidentified"
         word.normalized=creator.create_complex_word(config, word.un_normalized, is_last_word, default_normalization=True)
         word.status="alert"
         return word
 
+    print(f"-> {word.status}")
     # if none of the above, we return the word as it is
     word.type = "regular"
     return word

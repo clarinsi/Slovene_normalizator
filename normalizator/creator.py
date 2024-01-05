@@ -11,6 +11,8 @@ from normalizator.sentence import Sentence
 from re import findall, match, search
 import normalizator.declinator as dcl
 
+from normalizator.declinator import get_abbreviation_declension_noun, get_abbreviation_declension_adj
+
 
 decimal_notation = {
     "1": "cela",
@@ -432,6 +434,13 @@ def create_unit(config, token, declension, lema=None, tempdict=None):
     POS="samostalnik"
     return get_correct_form(lema, POS, spol=declension[0], sklon=declension[1], stevilo=declension[2], minidict=tempdict)
 
+def create_unit_adj(config, token, declension, lema=None, tempdict=None):
+    if not (lema and tempdict):
+        Unt=get_basic_unit(config, token)
+        lema=get_basic_unit(config, token, False)
+        tempdict=instant_tempdict(Unt)
+    POS="pridevnik"
+    return get_correct_form(lema, POS, spol=declension[0], sklon=declension[1], stevilo=declension[2], minidict=tempdict)
 
 def create_complex_unit_1(config, token):
     left_side, unit = token.split("/")
@@ -452,6 +461,47 @@ def create_complex_unit_1(config, token):
         unit = create_unit(config, unit, [None, "tožilnik", "ednina"], lema, tempdict)
 
     return " na ".join([left_side, unit]) if config["unit"]["normalize"]=="true" else "/".join([left_side, unit])
+
+
+def create_number_and_unit(config, token, sentence, word_index):
+    r = match(r'^(\d+)(\D+)$', token)
+    
+    number_part = r.group(1)
+    unit = r.group(2)
+    
+    if config["unit"]["normalize"] == "true":
+        lema, tempdict= make_lemma_and_tempdict(config, unit)
+        minidicts=[word.tag for word in sentence.words]
+        N = next_whole(word_index, minidicts)
+        if N and minidicts[N] and minidicts[N]["upos"] in ['NOUN'] and minidicts[N]["feats"].split('|')[0] in ["Case=Ins"]:
+            update_minidict(sentence, word_index, lema + 'ski',  POS="pridevnik")  # this word is adjective
+            main_declension=get_abbreviation_declension_adj(config, sentence, word_index, lema, tempdict) # figure out the correct form (this checks the next word mostly)
+            tempdict[lema+"ski"] = sloleks_forms_dict[lema + "ski"].copy()
+            unit = create_unit_adj(config, unit, main_declension, lema + "ski", tempdict) # this returns None ....
+            number_part = create_number(number_part, [None, "imenovalnik", "ednina"])
+            if number_part.endswith("ena"): number_part = number_part[:-3] + "en"
+            if number_part.endswith("dva"): number_part = number_part[:-3] + "dvo"
+            return "".join([number_part, unit])
+        else:
+            try:
+                
+                main_declension = get_abbreviation_declension_noun(config, sentence, word_index, lema, tempdict)
+                main_declension[2] = get_nr_from_int(number_part)
+
+                declension = [main_declension[0], main_declension[1], main_declension[2]]
+
+                if len(str(number_part))>2: nr=int(str(number_part)[-2:])
+                else: nr = int(number_part)
+                if nr > 4 and declension[1] in ["imenovalnik", "tožilnik"]:
+                    declension[1] = "rodilnik"
+            except NotImplementedError:
+                main_declension=[get_gen(lema, tempdict), "rodilnik", get_nr_from_int(number_part)]
+                declension = [main_declension[0], main_declension[1], main_declension[2]]
+            unit = create_unit(config, unit, declension, lema, tempdict)
+            number_part = create_number(number_part, main_declension)
+
+    
+    return " ".join([number_part, unit])
 
 def create_ordinal_number(token, declension):
     lema=get_nr_lemma(token, False)

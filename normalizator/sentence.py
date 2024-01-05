@@ -33,6 +33,8 @@ def add_tags(sentence):
 
 
 class Sentence:
+    last_verb = None
+    pre_last_verb = None
 
     def __init__(self, text=None, tokenized=True):
         self.text=text
