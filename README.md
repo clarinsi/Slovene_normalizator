@@ -11,6 +11,7 @@ Predpogoj za uporabo je nameščen **Python v3.9** in **pip**.
 1. `py -m venv env`
 2. `.\env\Scripts\activate`
 3. `pip install -r requirements.txt`
+4. `pip install .`
 
 #### MAC/Linux:
 
@@ -34,6 +35,15 @@ Normalizator vrne rezultat v obliki slovarja (dictionary), in sicer z naslednjim
 'status': 1,
 'logs': [('1954', 'tisoč devetsto štiriinpetdeset'), ('0,01', 'nič celih nič ena'), ('°C', 'stopinje Celzija')]}
 ```
+
+## Uporaba iz ukazne vrstice
+
+```python run.py "tekst za normalizacijo"```
+
+Lahko pa poženete označevalnik v ločenem procesu:
+
+```python run_pos_tagger.py```
+```python run.py --externalTagger "tekst za normalizacijo"```
 
 ## Status normalizacije
 
