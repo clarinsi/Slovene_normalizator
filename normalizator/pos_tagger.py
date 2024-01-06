@@ -16,7 +16,6 @@ class PosTagger:
 
     def initialize(self):
         if not self.remote and self.classla_pos_tagger is None:
-            print("Creating tokenizer instance ...")
             classla.download("sl")
             self.classla_pos_tagger = classla.Pipeline(lang="sl", tokenize_pretokenized=True)
 

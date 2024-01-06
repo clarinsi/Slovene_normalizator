@@ -110,10 +110,8 @@ def get_abbreviation_declension_noun(config, sentence: Sentence, word_index, lem
     N=next_whole(i, minidicts)
 
     if i>0 and (is_decimal(minidicts[i-1]["text"]) or is_fraction(minidicts[i-1]["text"])):
-        print(" --- fraction")
         Infos=[get_gen(lema, tempdict), "rodilnik", get_nr(lema, tempdict)]
     elif ("-" in minidicts[i-1]["text"].replace("–", "-") and is_decimal(minidicts[i-1]["text"].replace("–", "-").split("-")[-1])) or ("x" in minidicts[i-1]["text"].replace("×", "x") and is_decimal(minidicts[i-1]["text"].replace("×", "x").split("x")[-1]) or is_fraction(minidicts[i-1]["text"].replace("–", "-").split("-")[-1])):
-        print(" --- multiplication")
         Infos=[get_gen(lema, tempdict), "rodilnik", get_nr(lema, tempdict)]
     elif ("x" in minidicts[i-1]["text"].replace("×", "x") and minidicts[i-1]["text"].replace("×", "x").split("x")[-1].isnumeric()):
         if int(minidicts[i-1]["text"].replace("×", "x").split("x")[-1][-2:])<5:
