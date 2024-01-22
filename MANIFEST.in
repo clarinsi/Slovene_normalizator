@@ -1,2 +1,2 @@
-include normalizator/support/*
-recursive-include normalizator/util/ *
+recursive-include slovene_normalizator/support/ *
+recursive-include slovene_normalizator/util/ *
