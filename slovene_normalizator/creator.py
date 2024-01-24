@@ -4,14 +4,14 @@ from locale import normalize
 import logging
 from typing import List
 
-from normalizator.utils_helpers import *
-from normalizator import utils, word_type_check
-from normalizator.word import Word
-from normalizator.sentence import Sentence
+from slovene_normalizator.utils_helpers import *
+from slovene_normalizator import utils, word_type_check
+from slovene_normalizator.word import Word
+from slovene_normalizator.sentence import Sentence
 from re import findall, match, search
-import normalizator.declinator as dcl
+import slovene_normalizator.declinator as dcl
 
-from normalizator.declinator import get_abbreviation_declension_noun, get_abbreviation_declension_adj
+from slovene_normalizator.declinator import get_abbreviation_declension_noun, get_abbreviation_declension_adj
 
 
 decimal_notation = {

@@ -4,13 +4,13 @@ Methods for checking if a string is one of supported types of words
 
 from re import match, search
 
-from normalizator import sentence
-from normalizator.sentence import Sentence
-from normalizator.util import json_reader
-from normalizator.utils_helpers import dot_in_the_middle, is_decimal, is_fraction, is_numeric, isordinal
-from normalizator.word import Word
+from slovene_normalizator import sentence
+from slovene_normalizator.sentence import Sentence
+from slovene_normalizator.util import json_reader
+from slovene_normalizator.utils_helpers import dot_in_the_middle, is_decimal, is_fraction, is_numeric, isordinal
+from slovene_normalizator.word import Word
 
-from normalizator.super_tools.slicer import slicer
+from slovene_normalizator.super_tools.slicer import slicer
 
 # global number, for single json reading
 prefixes = {'': '', 'p': 'piko', 'n': 'nano', 'μ': 'mikro', 'µ': 'mikro', 'm': 'mili', 'c': 'centi', 'd': 'deci', 'dc': 'deci', 'da': 'deka', 'dk': 'deka', 'h': 'hekto', 'k': 'kilo', 'M': 'mega', 'G': 'giga', 'T': 'tera'}

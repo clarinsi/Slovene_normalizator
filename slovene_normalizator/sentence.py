@@ -1,8 +1,6 @@
-from normalizator.word import Word
-from normalizator.super_tools.word_tokenizer import word_tokenizer, spans
-from normalizator.pos_tagger import PosTagger
-
-pos_tagger = PosTagger()
+from slovene_normalizator.word import Word
+from slovene_normalizator.super_tools.word_tokenizer import word_tokenizer, spans
+from slovene_normalizator.pos_tagger import PosTagger
 
 
 def add_tags(sentence):
@@ -23,13 +21,14 @@ class Sentence:
         self.tags = None
         self.words = [Word(x) for x in self.tokens]
         self.status=1
+        self.pos_tagger = PosTagger()
         
     def length(self):
         return len(self.tokens)
 
     def tag(self):
         if not self.tags:
-            self.tags=pos_tagger.pos_tag(self.tokens)
+            self.tags=self.pos_tagger.pos_tag(self.tokens)
             add_tags(self)
 
     def get_word(self, index):

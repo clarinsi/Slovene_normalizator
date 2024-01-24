@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as readme_file:
 
 setup(
     name='slovene_normalizator',
-    version='0.0.1',
+    version='0.0.6',
     author = "Peter Pisljar",
     description = "slovenian text normalizator",
     #long_description=README,

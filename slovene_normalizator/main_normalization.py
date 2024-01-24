@@ -4,20 +4,20 @@ from re import match
 import json
 
 from copy import deepcopy
-from normalizator.configatron import boolify
+from slovene_normalizator.configatron import boolify
 
-from normalizator.declinator import get_abbreviation_declension, get_abbreviation_declension_adj, get_abbreviation_declension_noun, get_number_declension, date_declension, get_hour_case
-from normalizator.utils_helpers import *
-import normalizator.creator as creator
-import normalizator.utils as utils
-import normalizator.word_type_check as word_type_check
+from slovene_normalizator.declinator import get_abbreviation_declension, get_abbreviation_declension_adj, get_abbreviation_declension_noun, get_number_declension, date_declension, get_hour_case
+from slovene_normalizator.utils_helpers import *
+import slovene_normalizator.creator as creator
+import slovene_normalizator.utils as utils
+import slovene_normalizator.word_type_check as word_type_check
 
-from normalizator.word import Word
-from normalizator.sentence import Sentence
+from slovene_normalizator.word import Word
+from slovene_normalizator.sentence import Sentence
 
-from normalizator.super_tools.word_tokenizer import word_tokenizer, spans
-import normalizator.super_tools.sent_split as splitter
-from normalizator.configatron import *
+from slovene_normalizator.super_tools.word_tokenizer import word_tokenizer, spans
+import slovene_normalizator.super_tools.sent_split as splitter
+from slovene_normalizator.configatron import *
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 

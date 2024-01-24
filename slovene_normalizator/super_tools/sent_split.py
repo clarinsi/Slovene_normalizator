@@ -1,10 +1,12 @@
-from normalizator.sentence import PosTagger
-import normalizator.super_tools.word_tokenizer as wt
-from normalizator.super_tools.standardize_quotes import standardize_quotes
+from slovene_normalizator.sentence import PosTagger
+import slovene_normalizator.super_tools.word_tokenizer as wt
+from slovene_normalizator.super_tools.standardize_quotes import standardize_quotes
 
-pt = PosTagger()
+
 
 def split_sent(sent):
+    pt = PosTagger()
+    
     sent=" ".join(standardize_quotes(sent).split())
     final_punct=".?!"
     FP=0

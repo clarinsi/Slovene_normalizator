@@ -1,6 +1,6 @@
-from normalizator.utils_helpers import *
-from normalizator.word import Word
-from normalizator.sentence import Sentence
+from slovene_normalizator.utils_helpers import *
+from slovene_normalizator.word import Word
+from slovene_normalizator.sentence import Sentence
 
 def get_value_if(key, dictx, defaultValue):
     if key in dictx:

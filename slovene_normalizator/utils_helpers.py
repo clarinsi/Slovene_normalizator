@@ -3,11 +3,11 @@ from re import match
 import pickle
 import sys
 import os
-from normalizator.sentence import Sentence
-from normalizator.word import Word
-from normalizator.super_tools.word_tokenizer import word_tokenizer
-from normalizator.super_tools.slicer import slicer
-import normalizator.support.num_generator1mio as ng
+from slovene_normalizator.sentence import Sentence
+from slovene_normalizator.word import Word
+from slovene_normalizator.super_tools.word_tokenizer import word_tokenizer
+from slovene_normalizator.super_tools.slicer import slicer
+import slovene_normalizator.support.num_generator1mio as ng
 
 prefixes = {'': '', 'p': 'piko', 'n': 'nano', 'μ': 'mikro', 'µ': 'mikro', 'm': 'mili', 'c': 'centi', 'd': 'deci', 'dc': 'deci', 'da': 'deka', 'dk': 'deka', 'h': 'hekto', 'k': 'kilo', 'M': 'mega', 'G': 'giga', 'T': 'tera'}
 
