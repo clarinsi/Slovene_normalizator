@@ -1,0 +1,2 @@
+recursive-include slovene_normalizator/support/ *
+recursive-include slovene_normalizator/util/ *

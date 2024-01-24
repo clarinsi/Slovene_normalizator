@@ -4,9 +4,9 @@ This file includes various helper methods
 
 import nltk
 
-from normalizator import word_type_check
-from normalizator.word import Word
-from normalizator.sentence import Sentence
+from slovene_normalizator import word_type_check
+from slovene_normalizator.word import Word
+from slovene_normalizator.sentence import Sentence
 from copy import deepcopy
 
 from re import match

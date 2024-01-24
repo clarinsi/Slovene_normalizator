@@ -13,6 +13,8 @@ class Word:
         self.status = "Normal"
         self.processed = False
         self.declension = ""
+        self.prefix_punct = ""
+        self.suffix_punct = ""
         
     def toString(self, normalized="true"):
         # return self.prefix_punct + self.normalized + self.suffix_punct

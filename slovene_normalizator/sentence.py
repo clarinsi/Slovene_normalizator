@@ -1,11 +1,7 @@
-from normalizator.word import Word
-import classla
-classla.download("sl")
-from super_tools.word_tokenizer import word_tokenizer, spans
-classla_pos_tagger = classla.Pipeline(lang="sl", tokenize_pretokenized=True)
+from slovene_normalizator.word import Word
+from slovene_normalizator.super_tools.word_tokenizer import word_tokenizer, spans
+from slovene_normalizator.pos_tagger import PosTagger
 
-def pos_tag(toks):
-    return classla_pos_tagger([toks]).to_dict()[0][0]
 
 def add_tags(sentence):
     sentence_length=sentence.length()
@@ -15,6 +11,8 @@ def add_tags(sentence):
 
 
 class Sentence:
+    last_verb = None
+    pre_last_verb = None
 
     def __init__(self, text=None, tokenized=True):
         self.text=text
@@ -23,13 +21,14 @@ class Sentence:
         self.tags = None
         self.words = [Word(x) for x in self.tokens]
         self.status=1
+        self.pos_tagger = PosTagger()
         
     def length(self):
         return len(self.tokens)
 
     def tag(self):
         if not self.tags:
-            self.tags=pos_tag(self.tokens)
+            self.tags=self.pos_tagger.pos_tag(self.tokens)
             add_tags(self)
 
     def get_word(self, index):

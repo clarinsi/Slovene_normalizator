@@ -4,13 +4,13 @@ Methods for checking if a string is one of supported types of words
 
 from re import match, search
 
-from normalizator import sentence
-from normalizator.sentence import Sentence
-from normalizator.util import json_reader
-from normalizator.utils_helpers import dot_in_the_middle, is_decimal, is_fraction, is_numeric, isordinal
-from normalizator.word import Word
+from slovene_normalizator import sentence
+from slovene_normalizator.sentence import Sentence
+from slovene_normalizator.util import json_reader
+from slovene_normalizator.utils_helpers import dot_in_the_middle, is_decimal, is_fraction, is_numeric, isordinal
+from slovene_normalizator.word import Word
 
-from super_tools.slicer import slicer
+from slovene_normalizator.super_tools.slicer import slicer
 
 # global number, for single json reading
 prefixes = {'': '', 'p': 'piko', 'n': 'nano', 'μ': 'mikro', 'µ': 'mikro', 'm': 'mili', 'c': 'centi', 'd': 'deci', 'dc': 'deci', 'da': 'deka', 'dk': 'deka', 'h': 'hekto', 'k': 'kilo', 'M': 'mega', 'G': 'giga', 'T': 'tera'}
@@ -147,6 +147,18 @@ def is_unit(config, token):
     if token in units_with_prefixes or ("/" in token and all(p in units_with_prefixes for p in token.split("/"))): return True
     return False
 
+def is_number_with_unit(config, token):
+    # Attempt to match the pattern to the input string
+    r = match(r'^(\d+)(\D+)$', token)
+    
+    if r:
+        # If the pattern matches, extract the number and text parts
+        number_part = r.group(1)
+        text_part = r.group(2)
+
+        return is_unit(config, text_part)
+
+    return False
 
 def is_symbol(config, word: str):
     symbols = set(config['symbol']['set'].keys()) - {",", ".", ":", "!", '"', "?"}
